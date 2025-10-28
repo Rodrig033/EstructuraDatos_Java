@@ -1,34 +1,30 @@
+import java.util.Arrays;
+
 public class insertion {
 
-    // Función para mostrar el estado de la lista
-    public static void mostrarLista(int[] lista, int lon) {
-        for (int i = 0; i < lon; i++) {
-            System.out.print(lista[i] + " ");
+    public static void insertionSort(int[] arr) {
+        int n = arr.length;
+        for (int i = 1; i < n; i++) {
+            int key = arr[i];
+            int j = i - 1;
+            while (j >= 0 && arr[j] > key) {
+                arr[j + 1] = arr[j];
+                j = j - 1;
+            }
+            arr[j + 1] = key;
         }
-        System.out.println();
     }
 
     public static void main(String[] args) {
-        int[] arreglo = {5, 2, 4, 1, 3};
+        int[] datos = {64, 34, 25,1,4};
 
-        // Recorrer el arreglo
-        for (int i = 1; i < arreglo.length; i++) {
-            int clave = arreglo[i];
-            int j = i - 1;
+        System.out.println("Arreglo original:");
+        System.out.println(Arrays.toString(datos));
 
-            // Comparar el valor seleccionado con los anteriores
-            while (j >= 0 && arreglo[j] > clave) {
-                // Insertar el valor donde corresponda
-                arreglo[j + 1] = arreglo[j];
-                j = j - 1;
-            }
-            arreglo[j + 1] = clave;
+        insertionSort(datos);
 
-            // Mostrar el estado del arreglo en cada paso
-            mostrarLista(arreglo, arreglo.length);
-        }
-
-        // Mostrar el resultado final
-        mostrarLista(arreglo, arreglo.length);
+        System.out.println("\nArreglo ordenado:");
+        System.out.println(Arrays.toString(datos));
     }
 }
+ 
