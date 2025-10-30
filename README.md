@@ -44,7 +44,7 @@ javac src/Main.java
 javac -cp src Main
 ```
 
-## Salida esperada
+## Salida esperada 
 ```java
 ¡Hola Mundo desde EstructuraDatos_Java!
  Winter is comming...
@@ -56,7 +56,7 @@ Materia: *Estructura de Datos*
 
 📅 Fecha de inicio de la unidad: Octubre 2025
 by Rodrig033 🧑🏽‍🚀
-## Licencia
+## ⚖️ Licencia
 Este proyecto está bajo la licencia **MIT**.  
 Esto significa que puedes usar, copiar, modificar y distribuir el código libremente, siempre que se incluya el aviso de copyright original.
 
