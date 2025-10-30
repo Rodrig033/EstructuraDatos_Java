@@ -49,3 +49,10 @@ javac -cp src Main
 ¡Hola Mundo desde EstructuraDatos_Java!
  Winter is comming...
 ```
+## Créditos
+Proyecto desarrollado por **Rodrigo Farid**  
+**Universidad de Xalapa (UX)**  
+Materia: *Estructura de Datos*  
+
+📅 Fecha de inicio de la unidad: Octubre 2025
+by Rodrig033 🧑🏽‍🚀
