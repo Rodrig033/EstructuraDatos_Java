@@ -56,3 +56,8 @@ Materia: *Estructura de Datos*
 
 📅 Fecha de inicio de la unidad: Octubre 2025
 by Rodrig033 🧑🏽‍🚀
+## Licencia
+Este proyecto está bajo la licencia **MIT**.  
+Esto significa que puedes usar, copiar, modificar y distribuir el código libremente, siempre que se incluya el aviso de copyright original.
+
+Consulta el archivo [LICENSE](LICENSE) para más información.
