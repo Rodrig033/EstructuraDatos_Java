@@ -1,3 +1,5 @@
+package com.mx.curso.unidad2;
+
 public class quicksort {
 
     // Método principal QuickSort
