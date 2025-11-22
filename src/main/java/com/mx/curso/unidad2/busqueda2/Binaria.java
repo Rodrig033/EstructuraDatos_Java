@@ -1,6 +1,5 @@
 package com.mx.curso.unidad2.busqueda2;
-
-import com.mx.curso.unidad2.ordenamiento.burbuja.practica1.Burbuja;
+import com.mx.curso.unidad2.insertion;
 
 public class Binaria {
 
@@ -28,7 +27,7 @@ public class Binaria {
         int [] datos ={5,6,7,1,5,8,9,10};
         int elementoBuscar =1;
 
-        Burbuja.bubbleSort(datos);
+        insertion.Burbuja.bubbleSort(datos);
 
         int indice = busquedaBinaria(datos, elementoBuscar);
 

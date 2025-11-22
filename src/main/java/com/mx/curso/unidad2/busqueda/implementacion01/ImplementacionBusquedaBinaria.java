@@ -1,3 +1,6 @@
+import com.mx.curso.unidad2.busqueda2.Binaria;
+import com.mx.curso.unidad2.insertion;
+
 void main() {
 
     int[] numerosFijos = {
@@ -14,11 +17,11 @@ void main() {
 
     long startTime = System.nanoTime();
 
-    Burbuja.bubbleSort(numerosFijos);
+    insertion.Burbuja.bubbleSort(numerosFijos);
 
     int elementoABuscar = 999;
 
-    int indice = BusquedaBinaria.busquedaBinaria(numerosFijos, elementoABuscar);
+    int indice = Binaria.busquedaBinaria(numerosFijos, elementoABuscar);
 
     if (indice == -1) {
         System.out.println("Elemento no encontrado");
