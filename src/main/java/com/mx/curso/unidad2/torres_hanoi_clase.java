@@ -1,3 +1,5 @@
+package com.mx.curso.unidad2;
+
 public class torres_hanoi_clase {
 
     // Método recursivo para resolver el problema

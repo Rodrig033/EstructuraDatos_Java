@@ -1,3 +1,5 @@
+package com.mx.curso.unidad2;
+
 import java.util.Arrays;
 
 public class seleccion {
