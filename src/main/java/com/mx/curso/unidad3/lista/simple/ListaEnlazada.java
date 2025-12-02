@@ -18,10 +18,9 @@ public class ListaEnlazada {
     public void insertarAlFinal (int nuevoDato){
         Nodo nuevo = new Nodo(nuevoDato);
 
-        if(cabeza == null){
-            Nodo nuevoNodo = null;
-            cabeza = nuevoNodo;
-            System.out.println("Insertar al final (Lista vacia)" + nuevoDato);
+        if (cabeza == null) {
+            cabeza = nuevo;
+            System.out.println("Insertar al final (Lista vacía): " + nuevoDato);
             return;
         }
 
@@ -29,7 +28,9 @@ public class ListaEnlazada {
         while (actual.siguiente != null){
             actual = actual.siguiente;
         }
-        // El último nodp apunto al nuevo nodo
+        // Enlazar el último nodo con el nuevo:
+        actual.siguiente = nuevo;
+        System.out.println("Insertado a l final " + nuevoDato);
     }
 
     public void imprimirLista(){
