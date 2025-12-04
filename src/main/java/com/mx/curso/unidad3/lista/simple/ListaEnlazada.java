@@ -30,7 +30,7 @@ public class ListaEnlazada {
         }
         // Enlazar el último nodo con el nuevo:
         actual.siguiente = nuevo;
-        System.out.println("Insertado a l final " + nuevoDato);
+        System.out.println("Insertado al final " + nuevoDato);
     }
 
     public void imprimirLista(){
