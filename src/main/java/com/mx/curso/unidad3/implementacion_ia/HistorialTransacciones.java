@@ -19,7 +19,7 @@ public class HistorialTransacciones {
 
         if (iterador.hasPrevious()) {
             String accionDes = iterador.previous();
-            System.out.println("UNDO" + accionDes);
+            System.out.println("UNDO -> " + accionDes);
         }
 
         if (iterador.hasPrevious()) {
@@ -27,13 +27,13 @@ public class HistorialTransacciones {
             System.out.println("UNDO " + accionDes);
         }
 
-        System.out.println("Estado actual " + iterador.next());
+        System.out.println("Estado actual -> " + iterador.next());
 
         if(iterador.hasNext()){
             String accionRes = iterador.next();
             System.out.println("REDO "+ accionRes);
         }
-        System.out.println("Estado actual " + historial.get(iterador.previousIndex()));
+        System.out.println("Estado actual -> " + historial.get(iterador.previousIndex()));
 
     }
 }
