@@ -11,7 +11,7 @@ public class BusquedaPila {
         NodoPila nuevo = new NodoPila(estado);
         nuevo.siguiente = tope;
         tope = nuevo;
-        System.out.println("Push" + estado);
+        System.out.println("Push: " + estado);
     }
 
     public String eliminar(){
