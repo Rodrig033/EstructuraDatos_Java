@@ -1,4 +1,4 @@
-package com.mx.curso.unidad3.colas;
+package com.mx.curso.unidad3.colas.practica_02;
 
 import java.util.LinkedList;
 import java.util.Queue;
