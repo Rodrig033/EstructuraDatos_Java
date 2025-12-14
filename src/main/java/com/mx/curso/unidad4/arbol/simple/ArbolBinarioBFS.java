@@ -1,5 +1,8 @@
 package com.mx.curso.unidad4.arbol.simple;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class ArbolBinarioBFS {
     Nodo root;
 

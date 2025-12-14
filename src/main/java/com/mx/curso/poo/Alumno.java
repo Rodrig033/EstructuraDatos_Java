@@ -1,7 +1,5 @@
 package com.mx.curso.poo;
 
-import com.mx.curso.Main;
-
 public class Alumno {
     private String matricula;
     private String nombre;

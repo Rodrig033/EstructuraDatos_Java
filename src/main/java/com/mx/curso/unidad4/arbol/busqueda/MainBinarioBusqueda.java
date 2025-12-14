@@ -1,7 +1,7 @@
 package com.mx.curso.unidad4.arbol.busqueda;
 
 
-class Main {
+class MainBinarioBusqueda {
 
     public static void main(String[] args) {
 
