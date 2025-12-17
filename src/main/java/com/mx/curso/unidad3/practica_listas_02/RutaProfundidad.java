@@ -7,35 +7,37 @@ public class RutaProfundidad {
 
         PilaListaEnlazada ruta = new PilaListaEnlazada();
         ruta.push("México");
-        System.out.println("Inicia en México");
+        System.out.println("PUSH: México");
         ruta.mostrar();
 
         String actual = ruta.pop();
-        System.out.println("Eliminar y visitar " + actual);
+        System.out.println("Visitando -> " + actual);
         ruta.mostrar();
 
         ruta.push("Puebla");
-        System.out.println("Hidalgo Vecino de México");
+        System.out.println("PUSH: Puebla (vecino de México)");
         ruta.mostrar();
 
         ruta.push("Guanajuato");
-        System.out.println("Guanajuato Vecino de Hidalgo");
+        System.out.println("PUSH: Guanajuato (vecino de Puebla)");
         ruta.mostrar();
 
+        actual = ruta.pop();
         ruta.pop();
-        System.out.println("Eliminar y visitar " + actual);
+        System.out.println("POP -> Visitando " + actual);
         ruta.mostrar();
 
         ruta.push("San Luis Potosí");
-        System.out.println("San Luis Potosí Vecino de Guanajuato");
+        System.out.println("PUSH: San Luis Potosí (vecino de Guanajuato)");
         ruta.mostrar();
 
+        actual = ruta.pop();
         ruta.pop();
-        System.out.println("Eliminar y visitar " + actual);
+        System.out.println("POP -> Visitando  " + actual);
         ruta.mostrar();
 
         ruta.push("Nuevo León");
-        System.out.println("Nuevo León Vecino de Puebla");
+        System.out.println("PUSH: Nuevo León (vecino de San Luis Potosí)");
         ruta.mostrar();
 
     }
