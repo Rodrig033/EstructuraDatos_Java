@@ -40,5 +40,9 @@ public class RutaProfundidad {
         System.out.println("PUSH: Nuevo León (vecino de San Luis Potosí)");
         ruta.mostrar();
 
+        ruta.pop();
+        System.out.println("POP -> Visitando  " + actual);
+        ruta.mostrar();
+
     }
 }
