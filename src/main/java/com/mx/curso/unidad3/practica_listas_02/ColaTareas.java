@@ -1,4 +1,4 @@
-package com.mx.curso.unidad3.Practica_Estructura_Dinamica;
+package com.mx.curso.unidad3.practica_listas_02;
 
 
 import java.util.LinkedList;

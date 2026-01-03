@@ -6,7 +6,7 @@ public class ArbolPostMain {
         ArbolBinarioBusquedaPostorden arbol = new ArbolBinarioBusquedaPostorden();
 
         // Valores de entrada desordenados, igual que el ejemplo anterior:
-        int[] datosDesordenados = {10, 5, 15, 2, 7, 12, 18, 1, 6};
+        int[] datosDesordenados =  {50, 30, 80, 20, 45, 70, 95, 15, 35, 85};
 
 
 

@@ -38,11 +38,13 @@ public class PilaListaEnlazada {
 
     public void mostrar() {
         Nodo actual = cima;
-        System.out.print("Pila: ");
+
+        System.out.print("Stack: ");
         while (actual != null) {
             System.out.print(actual.dato + " ");
             actual = actual.siguiente;
         }
         System.out.println();
+
     }
 }

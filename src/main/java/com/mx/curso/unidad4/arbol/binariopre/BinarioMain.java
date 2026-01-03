@@ -4,7 +4,7 @@ public static void main(String[] args) {
     ArbolBinarioBusquedaPreorden arbol = new ArbolBinarioBusquedaPreorden();
 
     // Valores de entrada desordenados:
-    int[] datosDesordenados = {1, 5, 17, 21, 7, 4, 99, 8, 6};
+    int[] datosDesordenados =  {50, 30, 80, 20, 45, 70, 95, 15, 35, 85};
 
 
     // El árbol se construye de forma auto-organizada (BST)
