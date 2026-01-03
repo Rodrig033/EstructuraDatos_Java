@@ -8,23 +8,29 @@ import com.mx.curso.unidad4.motor_medicion.generators.*;
 public class DefaultExperimentFacade implements ExperimentFacade {
 
     private static final int DEFAULT_REPETITIONS = 5;
+    private static final int DEFAULT_WARMUP_RUNS = 3;
 
-    private final ExperimentController<Integer> controller;
+    private final ExperimentController<int[]> controller;
 
     public DefaultExperimentFacade() {
-        this.controller = new DefaultExperimentController<>();
+        Timer timer = new NanoTimer();
+
+        this.controller = new DefaultExperimentController<>(
+                timer,
+                DEFAULT_WARMUP_RUNS
+        );
     }
 
     @Override
-    public void runExperiment(
+    public MeasurementResult runExperiment(
             AlgorithmType algorithmType,
             int inputSize,
             Scenario scenario
     ) {
-        Algorithm<Integer> algorithm = resolveAlgorithm(algorithmType);
-        DataGenerator<Integer> generator = resolveGenerator(scenario);
+        Algorithm<int[]> algorithm = resolveAlgorithm(algorithmType);
+        DataGenerator<int[]> generator = resolveGenerator(scenario);
 
-        controller.runExperiment(
+        return controller.runExperiment(
                 algorithm,
                 generator,
                 inputSize,
@@ -33,9 +39,9 @@ public class DefaultExperimentFacade implements ExperimentFacade {
         );
     }
 
-    // Resolución de dependencias
+    //  Resolución de dependencias
 
-    private Algorithm<Integer> resolveAlgorithm(AlgorithmType type) {
+    private Algorithm<int[]> resolveAlgorithm(AlgorithmType type) {
         switch (type) {
             case BUBBLE_SORT:
                 return new BubbleSortAlgorithm();
@@ -52,14 +58,14 @@ public class DefaultExperimentFacade implements ExperimentFacade {
         }
     }
 
-    private DataGenerator<Integer> resolveGenerator(Scenario scenario) {
+    private DataGenerator<int[]> resolveGenerator(Scenario scenario) {
         switch (scenario) {
             case BEST_CASE:
-                return new BestCaseIntGenerator();
+                return new SortedArrayGenerator();
             case AVERAGE_CASE:
-                return new RandomIntGenerator();
+                return new RandomArrayGenerator();
             case WORST_CASE:
-                return new WorstCaseIntGenerator();
+                return new ReverseSortedArrayGenerator();
             default:
                 throw new IllegalArgumentException(
                         "Escenario no soportado: " + scenario
