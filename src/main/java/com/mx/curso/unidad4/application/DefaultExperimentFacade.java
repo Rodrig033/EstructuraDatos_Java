@@ -4,25 +4,23 @@ import com.mx.curso.unidad4.domain.AlgorithmType;
 import com.mx.curso.unidad4.motor_medicion.*;
 import com.mx.curso.unidad4.motor_medicion.algorithms.*;
 import com.mx.curso.unidad4.motor_medicion.generators.*;
+import com.mx.curso.unidad4.modulo_estadistica.analisis.*;
 
 public class DefaultExperimentFacade implements ExperimentFacade {
 
     private static final int DEFAULT_REPETITIONS = 5;
-    private static final int DEFAULT_WARMUP_RUNS = 3;
 
     private final ExperimentController<int[]> controller;
+    private final AnalysisService analysisService;
 
     public DefaultExperimentFacade() {
         Timer timer = new NanoTimer();
-
-        this.controller = new DefaultExperimentController<>(
-                timer,
-                DEFAULT_WARMUP_RUNS
-        );
+        this.controller = new DefaultExperimentController<>(timer, 3);
+        this.analysisService = new DefaultAnalysisService();
     }
 
     @Override
-    public MeasurementResult runExperiment(
+    public AnalyzedExperiment runExperiment(
             AlgorithmType algorithmType,
             int inputSize,
             Scenario scenario
@@ -30,46 +28,51 @@ public class DefaultExperimentFacade implements ExperimentFacade {
         Algorithm<int[]> algorithm = resolveAlgorithm(algorithmType);
         DataGenerator<int[]> generator = resolveGenerator(scenario);
 
-        return controller.runExperiment(
-                algorithm,
-                generator,
-                inputSize,
-                scenario,
-                DEFAULT_REPETITIONS
+        // 1️⃣ Medición
+        MeasurementResult measurementResult =
+                controller.runExperiment(
+                        algorithm,
+                        generator,
+                        inputSize,
+                        scenario,
+                        DEFAULT_REPETITIONS
+                );
+
+        // 2️⃣ Análisis
+        AnalysisResult analysisResult =
+                analysisService.analyze(measurementResult);
+
+        // 3️⃣ Metadata
+        ExperimentMetadata metadata =
+                new DefaultExperimentMetadata(
+                        algorithmType.name(),
+                        inputSize,
+                        scenario
+                );
+
+        // 4️⃣ Resultado final de alto nivel
+        return new DefaultAnalyzedExperiment(
+                metadata,
+                analysisResult
         );
     }
 
-    //  Resolución de dependencias
+    // ---------------- Factories internas ----------------
 
     private Algorithm<int[]> resolveAlgorithm(AlgorithmType type) {
-        switch (type) {
-            case BUBBLE_SORT:
-                return new BubbleSortAlgorithm();
-            case QUICK_SORT:
-                return new QuickSortAlgorithm();
-            case LINEAR_SEARCH:
-                return new LinearSearchAlgorithm();
-            case BINARY_SEARCH:
-                return new BinarySearchAlgorithm();
-            default:
-                throw new IllegalArgumentException(
-                        "Algoritmo no soportado: " + type
-                );
-        }
+        return switch (type) {
+            case BUBBLE_SORT -> new BubbleSortAlgorithm();
+            case QUICK_SORT -> new QuickSortAlgorithm();
+            case LINEAR_SEARCH -> new LinearSearchAlgorithm();
+            case BINARY_SEARCH -> new BinarySearchAlgorithm();
+        };
     }
 
     private DataGenerator<int[]> resolveGenerator(Scenario scenario) {
-        switch (scenario) {
-            case BEST_CASE:
-                return new SortedArrayGenerator();
-            case AVERAGE_CASE:
-                return new RandomArrayGenerator();
-            case WORST_CASE:
-                return new ReverseSortedArrayGenerator();
-            default:
-                throw new IllegalArgumentException(
-                        "Escenario no soportado: " + scenario
-                );
-        }
+        return switch (scenario) {
+            case BEST_CASE -> new SortedArrayGenerator();
+            case AVERAGE_CASE -> new RandomArrayGenerator();
+            case WORST_CASE -> new ReverseSortedArrayGenerator();
+        };
     }
 }

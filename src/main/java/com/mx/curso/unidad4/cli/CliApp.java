@@ -1,10 +1,18 @@
 package com.mx.curso.unidad4.cli;
 
-import com.mx.curso.unidad4.application.ExperimentFacade;
 import com.mx.curso.unidad4.application.DefaultExperimentFacade;
-import com.mx.curso.unidad4.motor_medicion.Scenario;
-import java.util.Scanner;
+import com.mx.curso.unidad4.application.ExperimentFacade;
 import com.mx.curso.unidad4.domain.AlgorithmType;
+import com.mx.curso.unidad4.modulo_estadistica.analisis.AnalyzedExperiment;
+import com.mx.curso.unidad4.modulo_estadistica.visualizacion.ChartData;
+import com.mx.curso.unidad4.modulo_estadistica.visualizacion.ChartDataMapper;
+import com.mx.curso.unidad4.modulo_estadistica.visualizacion.DefaultChartDataMapper;
+import com.mx.curso.unidad4.modulo_estadistica.visualizacion.ChartGenerator;
+import com.mx.curso.unidad4.modulo_estadistica.visualizacion.LineChartGenerator;
+import com.mx.curso.unidad4.motor_medicion.Scenario;
+
+import java.util.List;
+import java.util.Scanner;
 
 
 public class CliApp {
@@ -197,13 +205,39 @@ public class CliApp {
         ExperimentFacade facade =
                 new DefaultExperimentFacade();
 
-        facade.runExperiment(
-                algorithm,
-                inputSize,
-                scenario
-        );
+        AnalyzedExperiment experiment =
+                (AnalyzedExperiment) facade.runExperiment(
+                        algorithm,
+                        inputSize,
+                        scenario
+                );
+
+        generateChart(experiment);
 
         System.out.println("Experimento finalizado.");
+    }
+
+    private static void generateChart(AnalyzedExperiment experiment) {
+
+        ChartDataMapper mapper = new DefaultChartDataMapper();
+        ChartGenerator generator = new LineChartGenerator();
+
+        ChartData data = mapper.map(
+                "Rendimiento de " + experiment.getMetadata().getAlgorithmName(),
+                "Tamaño de entrada (N)",
+                "Tiempo promedio (ns)",
+                List.of(experiment)
+        );
+
+        String outputPath = "results/"
+                + experiment.getMetadata().getAlgorithmName()
+                + "_"
+                + experiment.getMetadata().getScenario()
+                + ".png";
+
+        generator.generate(data, outputPath);
+
+        System.out.println("📈 Gráfico generado en: " + outputPath);
     }
 
 
