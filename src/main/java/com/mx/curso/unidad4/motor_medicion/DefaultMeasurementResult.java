@@ -14,22 +14,14 @@ public class DefaultMeasurementResult implements MeasurementResult {
 
     @Override
     public double getAverageTime() {
-        if (measurements.isEmpty()) {
-            return 0.0;
-        }
-        long sum = 0;
-        for (long t : measurements) {
-            sum += t;
-        }
-        return (double) sum / measurements.size();
+        return measurements.stream()
+                .mapToLong(Long::longValue)
+                .average()
+                .orElse(0.0);
     }
 
     @Override
     public int getSampleSize() {
         return measurements.size();
-    }
-
-    public List<Long> getRawMeasurements() {
-        return List.copyOf(measurements);
     }
 }
