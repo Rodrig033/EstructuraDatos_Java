@@ -11,6 +11,7 @@ import com.mx.curso.unidad4.modulo_estadistica.visualizacion.ChartGenerator;
 import com.mx.curso.unidad4.modulo_estadistica.visualizacion.LineChartGenerator;
 import com.mx.curso.unidad4.motor_medicion.Scenario;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -28,7 +29,7 @@ public class CliApp {
     private static void showWelcome() {
         System.out.println("========================================");
         System.out.println("   ALGORITHM PERFORMANCE LABORATORY");
-        System.out.println("        Powered by NeuralNexus     ");
+        System.out.println("        Powered by NeuralNexus 🧠    ");
         System.out.println("========================================");
     }
 
@@ -37,13 +38,25 @@ public class CliApp {
         int option;
         do {
             System.out.println("\n1) Ejecutar nuevo experimento");
+            System.out.println("2) Ejecutar batch completo (varios tamaños y escenarios)");
             System.out.println("0) Salir");
             System.out.print("Opción: ");
 
             option = scanner.nextInt();
 
-            if (option == 1) {
-                runExperimentFlow();
+            switch (option) {
+                case 1:
+                    runExperimentFlow();  // tu flujo normal
+                    break;
+                case 2:
+                    AlgorithmType algorithmType = selectAlgorithm();
+                    runBatchExperiment(algorithmType);
+                    break;
+                case 0:
+                    System.out.println("Saliendo del laboratorio...");
+                    break;
+                default:
+                    System.out.println("Opción fuera de rango.");
             }
 
         } while (option != 0);
@@ -240,5 +253,49 @@ public class CliApp {
         System.out.println("📈 Gráfico generado en: " + outputPath);
     }
 
+    private static void runBatchExperiment(AlgorithmType algorithmType) {
+        int[] sizes = {1_000, 10_000, 100_000, 1_000_000};
+        Scenario[] scenarios = {Scenario.BEST_CASE, Scenario.AVERAGE_CASE, Scenario.WORST_CASE};
+        ExperimentFacade facade = new DefaultExperimentFacade();
+
+        for (Scenario scenario : scenarios) {
+            List<AnalyzedExperiment> experimentsBatch = new ArrayList<>();
+
+            for (int size : sizes) {
+                AnalyzedExperiment experiment =
+                        (AnalyzedExperiment) facade.runExperiment(algorithmType, size, scenario);
+
+                experimentsBatch.add(experiment);
+
+                System.out.println("✔ Experimento completado: "
+                        + algorithmType
+                        + " | Tamaño: " + size
+                        + " | Escenario: " + scenario);
+            }
+
+            // Generar gráfico con todos los puntos del batch
+            ChartDataMapper mapper = new DefaultChartDataMapper();
+            ChartGenerator generator = new LineChartGenerator();
+
+            ChartData data = mapper.map(
+                    algorithmType + " - " + scenario.name(),
+                    "Tamaño de entrada (N)",
+                    "Tiempo promedio (ns)",
+                    experimentsBatch
+            );
+
+            String outputPath = "results/"
+                    + algorithmType
+                    + "_"
+                    + scenario.name()
+                    + ".png";
+
+            generator.generate(data, outputPath);
+
+            System.out.println("📈 Gráfico de batch generado en: " + outputPath);
+        }
+
+        System.out.println("✅ Batch completo finalizado para " + algorithmType);
+    }
 
 }
